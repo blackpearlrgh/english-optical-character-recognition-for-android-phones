@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="D:/Eclipse projects/JJIL-12-22-08.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse projects/JJIL-Android-12-22-08.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse projects/JJIL-J2ME.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse projects/JJIL-J2SE.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

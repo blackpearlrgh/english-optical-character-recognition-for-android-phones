@@ -1,0 +1,6 @@
+myimage=imread('imagename.extension');
+imshow(myimage);  % to show the image
+testgray=rgb2gray(myimage);
+T=graythresh(testgray);
+bw=im2bw(testgray, T);
+imshow(bw);

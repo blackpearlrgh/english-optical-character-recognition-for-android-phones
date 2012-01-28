@@ -7,5 +7,9 @@
 	<classpathentry exported="true" kind="var" path="JJIL_LIB"/>
 	<classpathentry exported="true" kind="var" path="JJIL_ANDROID"/>
 	<classpathentry exported="true" kind="var" path="SWT_LIB_J2ME"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="var" path="JJIL-Android-12-22-08"/>
+	<classpathentry kind="var" path="JJIL-12-22-08"/>
+	<classpathentry kind="var" path="JJIL-J2ME"/>
+	<classpathentry kind="var" path="JJIL-J2SE"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

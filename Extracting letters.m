@@ -1,5 +1,4 @@
 
-
 clc, close all
 imagen=imread('abcCapital.jpg');
 imshow(imagen);
@@ -11,9 +10,7 @@ while 1
     %Fcn 'lines' separate lines in text
     [fl re]=lines(re);
     imgn=fl;
-    %Uncomment line below to see lines one by one
-    %imshow(fl);pause(0.5)    
-    %-----------------------------------------------------------------     
+      
     % Label and count connected components
     [L Ne] = bwlabel(imgn);    
     for n=1:Ne

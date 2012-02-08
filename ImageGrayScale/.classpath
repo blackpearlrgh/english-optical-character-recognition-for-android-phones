@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="var" path="JJIL-Android"/>
-	<classpathentry kind="var" path="JJIL-J2ME"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="D:/Nashwa/Graduation Project/JJIL-Android-12-22-08.jar"/>
+	<classpathentry kind="lib" path="D:/Nashwa/Graduation Project/JJIL-J2ME.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -16,7 +16,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
+import android.view.*;
 
 public class JJILcodeActivity extends Activity {
     /** Called when the activity is first created. */
@@ -73,11 +75,15 @@ public class JJILcodeActivity extends Activity {
 			e.printStackTrace();
 		}
     }   
-       /* protected void onDraw(Canvas canvas) {
+    
+       protected void onDraw(Canvas canvas, RectF dst, Bitmap myimage) {
 			dst.set(50, 50, 350, 350);
         
-			canvas.drawBitmap(myimage, null, dst, null); //the source is null which means take all 
-			the picture is stretched
+			canvas.drawBitmap(myimage, null, dst, null); //the source is null which means take all
+			//the picture is stretched
 			
-			invalidate();*/
-    }
+			//invalidate();
+			
+       }
+    
+}

@@ -11,6 +11,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+
 import org.opencv.utils.*;
 
 
@@ -27,15 +28,18 @@ public class TestopenCVActivity extends Activity {
         Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.bright );
         
         Mat imgToProcess =Utils.bitmapToMat(bmp);
-        
-  
        
+        
         Imgproc.cvtColor(imgToProcess, imgToProcess, Imgproc.COLOR_BGR2GRAY);
-         Imgproc.cvtColor(imgToProcess, imgToProcess, Imgproc.COLOR_GRAY2RGBA, 4);
+        Imgproc.cvtColor(imgToProcess, imgToProcess, Imgproc.COLOR_GRAY2RGBA, 4);
+        Imgproc.medianBlur(imgToProcess, imgToProcess, 9);
+       Imgproc.threshold(imgToProcess, imgToProcess, 128, 255, Imgproc.THRESH_BINARY);
+        
+        
         
         Bitmap bmpout =Bitmap.createBitmap(imgToProcess.cols(), imgToProcess.rows(),Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(imgToProcess, bmpout);
-        img.setImageBitmap(bmpout);            
+        img.setImageBitmap(bmpout);           
        
            
     }

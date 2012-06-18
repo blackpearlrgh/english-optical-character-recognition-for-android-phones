@@ -2,6 +2,7 @@ package com.android;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.Serializable;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,16 +26,17 @@ public class TakePicture4Activity extends Activity {
     /** Called when the activity is first created. */
 	  private static final int SELECT_PICTURE = 1;
 	    private static final int OPEN_CAMERA = 2;
-	    //from maha's project
-	    private static final int GET_TEXT =3 ;   //Not in the other one
-	    private static final int LAYOUT_CHANGE =4 ; //Not in the other one
+	    private static final int MenuOptions = 3;
 
 	    private String selectedImagePath;
 	    //ADDED
 	    private String filemanagerstring;
 	    Button b1,b2,Displaytext,Menubtn;
 	    ImageView iv;
-	    TextView tv ;   
+	    TextView tv ; 
+	    int position ;
+	    Intent ImgProintent;
+	    public Bitmap myImgInput;
 
 	    
     @Override
@@ -67,6 +69,7 @@ public class TakePicture4Activity extends Activity {
 	}
 	
 	  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  ////////////////////////////////////////////////////////////////////////StartActivtyfor result for camera
 	    	if(requestCode == OPEN_CAMERA)
 	        {
 	            if(resultCode == RESULT_OK)
@@ -79,6 +82,8 @@ public class TakePicture4Activity extends Activity {
 	                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 	                    //update the image view with the bitmap
 	                    iv.setImageBitmap(thumbnail);
+	                    myImgInput = thumbnail;        //HADEEEEEL LOOOOK HEREEEE BITMAPDRAWABLE
+	                    
 	                }
 	                else if(data.getExtras()==null)
 	                {
@@ -87,8 +92,13 @@ public class TakePicture4Activity extends Activity {
 	                    Toast.makeText(getApplicationContext(), "No extras to retrieve!",Toast.LENGTH_SHORT).show();
 	                    //retrieve the path from the intent using data.getData().getPath() and create a BitmapDrawable using this path
 	                    BitmapDrawable thumbnail = new BitmapDrawable(getResources(), data.getData().getPath());
+	          
+//	                    myImgInput=BitmapFactory.decodeResource(getResources(), R.drawable.abccapital);
 	                    //update the image view with the newly created drawable
-	                    iv.setImageDrawable(thumbnail); 
+//	                    iv.setImageDrawable(thumbnail); 
+	                    myImgInput = ((BitmapDrawable)thumbnail).getBitmap();  ////HADEEEEEL LOOOOK HEREEEE BITMAPDRAWABLE
+//	                    myImgInput = (thumbnail).getBitmap();
+	                    iv.setImageBitmap(myImgInput); 
 	                }
 	            }
 	            else if (resultCode == RESULT_CANCELED)
@@ -96,13 +106,14 @@ public class TakePicture4Activity extends Activity {
 	                Toast.makeText(getApplicationContext(), "Cancelled",Toast.LENGTH_SHORT).show();
 	            }
 	        }
+	    	/////////////////////////////////////////////////////////////////////StartActivityForResult For Gallery
 	    	else if (requestCode == SELECT_PICTURE)
 	    	{
 	    	        if(resultCode == RESULT_OK)
 	    	        {
 	    	             if (data != null) {
 	    	                  //our BitmapDrawable for the thumbnail
-	    	                  BitmapDrawable bmpDrawable = null;
+	    	                  BitmapDrawable bmpDrawable = null;     
 	    	                  //try to retrieve the image using the data from the intent
 	    	                  Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
 	    	                  if(cursor != null)
@@ -121,7 +132,11 @@ public class TakePicture4Activity extends Activity {
 	    	                       * the miui gallery was used (so the data contains the path to the image)*/
 	    	                      bmpDrawable = new BitmapDrawable(getResources(), data.getData().getPath());
 	    	                  }
-	    	                  iv.setImageDrawable(bmpDrawable);//update our imageview with the BitmapDrawable
+//	    	                  iv.setImageDrawable(bmpDrawable);//update our imageview with the BitmapDrawable
+	    	                  
+	    	                     myImgInput = ((BitmapDrawable)bmpDrawable).getBitmap();      //ADDED THIS ONE HERE HADEEEEEEL
+	    	                     iv.setImageBitmap(myImgInput);
+	    	                     Log.d("Test grayImg", ""+ myImgInput);
 	    	              }
 	    	              else {
 	    	                  Toast.makeText(getApplicationContext(), "Cancelled",Toast.LENGTH_SHORT).show();
@@ -132,8 +147,29 @@ public class TakePicture4Activity extends Activity {
 	    	            Toast.makeText(getApplicationContext(), "Cancelled",Toast.LENGTH_SHORT).show();
 	    	        }
 	    	  }//end of else 
+	    ///////////////////////////////////////////////////////////start activity for result for Menu
+	    	else if (requestCode == MenuOptions)
+	    	{
+	    	        if(resultCode == RESULT_OK)
+	    	        {
+	    	        	 position=data.getExtras().getInt("position");
+	    	        	 Log.v(this.toString(), "I returned to main class with position"+position);
+	    	        		 	        	 
+	    		    	myImgInput=BitmapFactory.decodeResource(getResources(), R.drawable.comp);	//THIS IS TEMPRORARY TO HANDLE IMAGE TRANSLATION	
+
+	    		    	ImgProcessing myImageOut = new ImgProcessing();
+	    	        	 myImageOut.operate(myImgInput);
+	    	        	 Bitmap OutImg=myImageOut.MenuOutput(position);
+	    	        	 iv.setImageBitmap(OutImg);
+	    	        	 
+	    	        }
+	    	        else if (resultCode == RESULT_CANCELED)
+	    	        {
+	    	            Toast.makeText(getApplicationContext(), "Cancelled",Toast.LENGTH_SHORT).show();
+	    	        }
+	    	  }//end of else 
 	    }//end of start activity
-	  
+//////////////////////////////////////////////////////////////////////////////	  
 	  /*** Using the Input Stream  */
 	    private void displayImage() {
 	    	FileInputStream in;
@@ -192,8 +228,8 @@ public class TakePicture4Activity extends Activity {
 	            	
 	    			try {
 	    			Class myClass = Class.forName ("com.android.Menu");
-	    				Intent menuIntent = new Intent (TakePicture4Activity.this , myClass);
-	    				startActivity(menuIntent);
+	    			Intent menuIntent = new Intent (TakePicture4Activity.this , myClass);
+	    				startActivityForResult(menuIntent,MenuOptions );
 	    			} catch (ClassNotFoundException e) {
 	    				// TODO Auto-generated catch block
 	    				e.printStackTrace();
@@ -230,11 +266,19 @@ public class TakePicture4Activity extends Activity {
 		//	@Override
 			public void onClick(View v) {
 				try {
-					 Log.v(this.toString(), "Inside on click listener for screen 1.");
+//					myImgInput=BitmapFactory.decodeResource(getResources(), R.drawable.comp);
+//					add the previous line if u want to test 
+					 
 					Class myClass = Class.forName("com.android.ShowText");
-					 Intent data = new Intent(TakePicture4Activity.this,myClass);			
-					startActivity(data)	;
-//					finish();
+					
+					 Intent datatext = new Intent(TakePicture4Activity.this,myClass);
+                     
+					 datatext.putExtra("myImgInput",myImgInput);
+					 
+					 Log.d("Test MYiMGiNPUT", ""+ myImgInput);
+					
+					 startActivity(datatext)	;
+
 						
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block

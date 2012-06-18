@@ -127,16 +127,16 @@ public class Database {
 		int CCentry, CC;
 		String s, sentry;
 		int step = 0;
-		Log.d("EuclideanDis Entered", " ");
-		Log.d("chainCode", " " + chainCode);
-		Log.d("chainCode.length", " " + chainCode.length());
+	//	Log.d("EuclideanDis Entered", " ");
+	//	Log.d("chainCode", " " + chainCode);
+	//	Log.d("chainCode.length", " " + chainCode.length());
 		for (int i = 0; i < chainCode.length(); i++) {
-			Log.d("Euclidean Loop", " " + i);
+	//		Log.d("Euclidean Loop", " " + i);
 			sentry = "" + entry.charAt(i);
 			CCentry = Integer.parseInt(sentry);
 			s = "" + chainCode.charAt(i);
 			CC = Integer.parseInt(s);
-			Log.d("Euclidean Loop", " " + i + " " + CC + " " + CCentry);
+	//		Log.d("Euclidean Loop", " " + i + " " + CC + " " + CCentry);
 
 			if (CCentry == CC) {
 				step += 0;
@@ -149,14 +149,14 @@ public class Database {
 			} else if ((CCentry == mod(CC - 4)) || (CCentry == (CC + 4) % 8)) {
 				step += 4;
 			}
-			Log.d("Euclidean Step", " " + step);
+	//		Log.d("Euclidean Step", " " + step);
 		}
-		Log.d("EuclideanDis Leaving", " ");
+	//	Log.d("EuclideanDis Leaving", " ");
 		return step;
 	}
 
 	public String getLetter(String chainCode) {
-		Log.d("Inside getLetter ", " ");
+	//	Log.d("Inside getLetter ", " ");
 		String entry = null;
 		int i = 0, j = 0;
 		int euclideanop, smallest;
@@ -167,36 +167,36 @@ public class Database {
 				null, null, null);
 
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-			Log.d("Cursor getLetter Loop", "Inside" + i);
+	//		Log.d("Cursor getLetter Loop", "Inside" + i);
 			entry = c.getString(c.getColumnIndex(CHAIN_CODE));
-			Log.d("Entry", entry);
+	//		Log.d("Entry", entry);
 			euclideanop = EuclideanDist(entry, chainCode);
 			euclideanlist.add(euclideanop);
-			Log.d("Euclidean Array", " " + i + " " + euclideanlist.get(i));
+	//		Log.d("Euclidean Array", " " + i + " " + euclideanlist.get(i));
 			i++;
 		}
 
-		Log.d("Curcor getLetter Outside", " ");
+	//	Log.d("Cursor getLetter Outside", " ");
 
 		smallest = euclideanlist.get(0);
 		int reference = 0;
 
 		for (j = 0; j < euclideanlist.size(); j++) {
-			Log.d("smallest euclidean loop", "Inside ");
+	//		Log.d("smallest euclidean loop", "Inside ");
 			if (euclideanlist.get(j) < smallest) {
 				smallest = euclideanlist.get(j);
 				reference = j;
-				Log.d("smallest value", " " + reference + " " + smallest);
+	//			Log.d("smallest value", " " + reference + " " + smallest);
 			}
 		}
 		String letter = getLetterByIndex(reference+1);
-		Log.d("OUTPUT", letter);
+	//	Log.d("OUTPUT", letter);
 		return letter;
 	}
 
 	public String getLetterByIndex(int reference) {
 
-		Log.d("Reference", ""+reference);
+	//	Log.d("Reference", ""+reference);
 		
 		SQLiteDatabase db = ourhelper.getReadableDatabase();
 		Cursor output = db.rawQuery("SELECT " + LETTER + " FROM "

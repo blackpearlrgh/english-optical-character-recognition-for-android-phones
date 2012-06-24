@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, TakePicture5Activity!</string>
+    <string name="app_name">TakePicture5</string>
+</resources>
